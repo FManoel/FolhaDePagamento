@@ -8,7 +8,9 @@ public abstract class Gratificacao {
 	protected TipoDeGratificacao tipo;
 	protected Datas dataTrabalhada;
 	protected double valorDaGraftificacao;
-
+	/*
+	 * Sobrescreve o metodo toString para uma melhor apresentacao ao usuario
+	 */
 	@Override
 	public String toString() {
 
@@ -47,17 +49,25 @@ public abstract class Gratificacao {
 	public void setPorcentagem(double porcentagem) {
 		this.porcentagem = porcentagem;
 	}
-
+	//Calcula o valor da gatificacao (de desempenho) atraves da porcentagem e o salario
 	public double calculaGratificacao(double salario) {
 		this.valorDaGraftificacao = salario * this.porcentagem;
 
 		return this.valorDaGraftificacao;
 	}
 
-	public double calculaGratificacao(double salario, int hora_trabalhada) {
-		this.valorDaGraftificacao = salario * this.porcentagem * hora_trabalhada;
+	//Calcula o valor da gatificacao (de hora extra) atraves da porcentagem e o salario
+		public double calculaGratificacao(double salario, int hora_trabalhada) {
+			try {
+				if(hora_trabalhada <= 0)
+					throw new Exception();
+				this.valorDaGraftificacao = salario * this.porcentagem * hora_trabalhada;
+			} catch(Exception e) {
+				System.out.println("VERIFIQUE O AS HORAS TRABALHADAS");
+			}
+			
 
-		return this.valorDaGraftificacao;
-	}
+			return this.valorDaGraftificacao;
+		}
 
 }

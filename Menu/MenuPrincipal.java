@@ -18,8 +18,22 @@ public class MenuPrincipal {
 	public static void menuPrincipal() {
 		Scanner teclado = new Scanner(System.in);
 		int opcao;
+		String leitura;
 		menu_Principal();
-		opcao = teclado.nextInt();
+		try {
+			leitura = teclado.next();
+			for (int i = 0; i < leitura.length(); i++) {
+				Character caractere = leitura.charAt(i);
+				if (!(Character.isDigit(caractere))) {
+					throw new Exception();
+				}
+			}
+			opcao = Integer.valueOf(leitura);
+		} catch (Exception e) {
+			System.err.println("\nDigite apenas numeros");
+			opcao = 99;
+			leitura = "erro";
+		}
 
 		switch (opcao) {
 		case 0:

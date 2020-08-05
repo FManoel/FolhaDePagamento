@@ -21,12 +21,25 @@ public class MenuFuncionario {
 
 	public static void IU() {
 
-		int op, id, cargoInt;
-		String nome, cargo;
+		int opf, id, cargoInt;
+		String nome, cargo,leitura;
 		ImprimeMenu();
-		op = teclado.nextInt();
+		try {
+			leitura = teclado.next();
+			for (int i = 0; i < leitura.length(); i++) {
+				Character caractere = leitura.charAt(i);
+				if (!(Character.isDigit(caractere))) {
+					throw new Exception();
+				}
+			}
+			opf = Integer.valueOf(leitura);
+		} catch (Exception e) {
+			System.err.println("\nDigite apenas numeros");
+			opf = 99;
+			leitura = "erro";
+		}
 
-		switch (op) {
+		switch (opf) {
 		case 0:
 			MenuPrincipal.menuPrincipal();
 			break;
@@ -36,8 +49,23 @@ public class MenuFuncionario {
 			System.out.println("Escolha o cargo: ");
 			System.out.println("[1]\tGerente");
 			System.out.println("[2]\tFuncionario");
-			cargoInt = teclado.nextInt();
-			switch (cargoInt) {
+			int c;
+			
+			try {
+				leitura = teclado.next();
+				for (int i = 0; i < leitura.length(); i++) {
+					Character caractere = leitura.charAt(i);
+					if (!(Character.isDigit(caractere))) {
+						throw new Exception();
+					}
+				}
+				c = Integer.valueOf(leitura);
+			} catch (Exception e) {
+				System.err.println("\nDigite apenas numeros");
+				c = 99;
+				leitura = "erro";
+			}
+			switch (c) {
 			case 1:
 				ListaDePessoa.adcionaPessoa(nome, "Gerente");
 				System.out.println("Gerente adicionado com sucesso");
@@ -64,9 +92,15 @@ public class MenuFuncionario {
 			if (ListaDePessoa.getListaDePessoa() != null) {
 				System.out.println("Digite o id do funcionario: ");
 				id = teclado.nextInt();
-				SubMenuFuncionario.modificacoes(id);
+				if(ListaDePessoa.recuperaPessoa(id) != null)
+				{
+					SubMenuFuncionario.modificacoes(id);
+				}
 			}
-			System.err.println("\nA lista de funcionarios esta vazia: ");
+			if(ListaDePessoa.getListaDePessoa() == null)
+			{
+			System.err.println("\nA lista de funcionarios esta vazia!\nAdicione ao menos um funcionario! ");
+			}
 			IU();
 			break;
 

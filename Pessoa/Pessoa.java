@@ -5,6 +5,9 @@ public abstract class Pessoa {
 	protected String cargo;
 	protected double salario;
 
+	/*
+	 * Sobrescreve o metodo toString para uma melhor apresentacao ao usuario
+	 */
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

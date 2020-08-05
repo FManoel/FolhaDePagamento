@@ -28,10 +28,24 @@ public class SubMenuFuncionario {
 	public static void modificacoes(int id) {
 		double salario;
 		int escolha, tipo, horas_trabalhadas, index_gratificacao;
-		String nomeAtual, data_trabalhada;
+		String nomeAtual,leitura, data_trabalhada;
 
 		ImprimeMenuModificacoes(id);
-		escolha = teclado.nextInt();
+		try {
+			leitura = teclado.next();
+			for (int i = 0; i < leitura.length(); i++) {
+				Character caractere = leitura.charAt(i);
+				if (!(Character.isDigit(caractere))) {
+					throw new Exception();
+				}
+			}
+			escolha = Integer.valueOf(leitura);
+		} catch (Exception erro) {
+			System.err.println("\nDigite apenas numeros");
+			escolha = 99;
+			leitura = "erro";
+		}
+
 		switch (escolha) {
 		case 0:
 			MenuFuncionario.IU();
